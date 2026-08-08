@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DilliRaja S - Web Developer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ==================== LOADING SCREEN ==================== -->
+<div id="loading-screen" class="loading-screen">
+    <div class="loader-ring-container">
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="loader-ring"></div>
+        <div class="profile-loader">
+            <div class="profile-img-loader">
+                <img src="assets/profile.jpg" alt="DilliRaja">
+            </div>
+        </div>
+    </div>
+    <div class="loader-text">
+        <span>D</span><span>I</span><span>L</span><span>L</span><span>I</span>
+        <span class="loader-dot">.</span>
+        <span>R</span><span>A</span><span>J</span><span>A</span>
+    </div>
+    <div class="loader-subtitle">Loading Experience...</div>
+    <div class="loading-bar">
+        <div class="loading-bar-fill"></div>
+    </div>
+</div>
+
+<!-- ==================== SOUND TOGGLE ==================== -->
+<button id="sound-toggle" class="sound-toggle" title="Toggle Sound">
+    <i class="fas fa-volume-up"></i>
+</button>
+
+<!-- ==================== THEME TOGGLE ==================== -->
+<button id="theme-toggle" class="theme-toggle" title="Toggle Theme">
+    <i class="fas fa-moon"></i>
+</button>
+
+<!-- ==================== COLOR PICKER ==================== -->
+<button id="color-picker-btn" class="color-picker-btn" title="Change Theme Color">
+    <i class="fas fa-palette"></i>
+</button>
+<div id="color-panel" class="color-panel">
+    <div class="color-panel-header">
+        <h3>Theme Colors</h3>
+        <button onclick="closeColorPanel()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="color-panel-grid">
+        <button class="color-swatch" data-color="teal" style="--sw1:#00f5d4;--sw2:#00bbf9;" title="Teal Blue">
+            <span class="swatch-mix"><i></i><i></i></span><span>Teal Blue</span>
+        </button>
+        <button class="color-swatch" data-color="neon" style="--sw1:#00ff88;--sw2:#00cc66;" title="Neon Green">
+            <span class="swatch-mix"><i></i><i></i></span><span>Neon Green</span>
+        </button>
+        <button class="color-swatch" data-color="purple" style="--sw1:#a855f7;--sw2:#6d28d9;" title="Purple">
+            <span class="swatch-mix"><i></i><i></i></span><span>Purple</span>
+        </button>
+        <button class="color-swatch" data-color="pink" style="--sw1:#f15bb5;--sw2:#ff6b9d;" title="Pink">
+            <span class="swatch-mix"><i></i><i></i></span><span>Pink</span>
+        </button>
+        <button class="color-swatch" data-color="orange" style="--sw1:#ff8800;--sw2:#ff5500;" title="Orange">
+            <span class="swatch-mix"><i></i><i></i></span><span>Orange</span>
+        </button>
+        <button class="color-swatch" data-color="red" style="--sw1:#ff4444;--sw2:#cc0000;" title="Red">
+            <span class="swatch-mix"><i></i><i></i></span><span>Red</span>
+        </button>
+        <button class="color-swatch" data-color="gold" style="--sw1:#ffd700;--sw2:#ffaa00;" title="Gold">
+            <span class="swatch-mix"><i></i><i></i></span><span>Gold</span>
+        </button>
+        <button class="color-swatch" data-color="ocean" style="--sw1:#0ea5e9;--sw2:#0284c7;" title="Ocean Blue">
+            <span class="swatch-mix"><i></i><i></i></span><span>Ocean</span>
+        </button>
+        <button class="color-swatch" data-color="mint" style="--sw1:#34d399;--sw2:#10b981;" title="Mint">
+            <span class="swatch-mix"><i></i><i></i></span><span>Mint</span>
+        </button>
+        <button class="color-swatch" data-color="coral" style="--sw1:#fb7185;--sw2:#e11d48;" title="Coral">
+            <span class="swatch-mix"><i></i><i></i></span><span>Coral</span>
+        </button>
+        <button class="color-swatch" data-color="lavender" style="--sw1:#c084fc;--sw2:#a855f7;" title="Lavender">
+            <span class="swatch-mix"><i></i><i></i></span><span>Lavender</span>
+        </button>
+        <button class="color-swatch" data-color="sunset" style="--sw1:#f97316;--sw2:#ec4899;" title="Sunset Mix">
+            <span class="swatch-mix"><i></i><i></i></span><span>Sunset</span>
+        </button>
+    </div>
+</div>
+
+<!-- ==================== LIGHTBOX ==================== -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+    <img id="lightbox-img" src="" alt="Preview">
+    <div class="lightbox-actions">
+        <button onclick="event.stopPropagation();downloadLightboxImage()"><i class="fas fa-download"></i> Download</button>
+        <button onclick="event.stopPropagation();shareLightboxImage()"><i class="fas fa-share-alt"></i> Share</button>
+    </div>
+</div>
+
+<!-- ==================== PARTICLES BACKGROUND ==================== -->
+<canvas id="particles-canvas"></canvas>
+
+<!-- ==================== PAGE 1: HOME ==================== -->
+<div id="page-home" class="page active">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" id="btn-back" title="Back" style="display:none;">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <button class="btn-icon whatsapp-btn" title="WhatsApp" onclick="window.open('https://wa.me/9500388259','_blank')">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">DILLIRAJA S</h2>
+        </div>
+        <div class="header-right">
+            <button class="btn-icon category-btn" id="btn-categories" title="Categories">
+                <i class="fas fa-th-large"></i>
+            </button>
+            <button class="btn-icon next-btn" id="btn-next" title="Next Section">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+        <div class="hero-content">
+            <div class="profile-container">
+                <div class="profile-ring">
+                    <svg viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="90" class="ring-bg"/>
+                        <circle cx="100" cy="100" r="90" class="ring-progress"/>
+                    </svg>
+                </div>
+                <div class="profile-image">
+                    <img src="assets/profile.jpg" alt="DilliRaja S">
+                </div>
+                <div class="profile-status">
+                    <span class="status-dot"></span> Available for work
+                </div>
+            </div>
+            <h1 class="hero-name glitch" data-text="DILLIRAJA S">DILLIRAJA S</h1>
+            <p class="hero-title">
+                <span class="typed-text" id="typed-text"></span>
+                <span class="cursor">|</span>
+            </p>
+            <div class="hero-location">
+                <i class="fas fa-map-marker-alt"></i> Arani, India
+            </div>
+        </div>
+
+        <!-- CURVED CATEGORY BOX -->
+        <div class="curved-box" id="curved-box">
+            <div class="curved-box-inner">
+                <div class="curved-box-header">
+                    <h3><i class="fas fa-fire"></i> Explore Services</h3>
+                </div>
+                <div class="curved-categories">
+                    <button class="curved-cat-item" data-category="about" onclick="navigateTo('about')">
+                        <div class="cat-icon"><i class="fas fa-user"></i></div>
+                        <span>About</span>
+                    </button>
+                    <button class="curved-cat-item" data-category="services" onclick="navigateTo('services')">
+                        <div class="cat-icon"><i class="fas fa-cogs"></i></div>
+                        <span>Services</span>
+                    </button>
+                    <button class="curved-cat-item" data-category="portfolio" onclick="navigateTo('portfolio')">
+                        <div class="cat-icon"><i class="fas fa-briefcase"></i></div>
+                        <span>Portfolio</span>
+                    </button>
+                    <button class="curved-cat-item" data-category="social" onclick="navigateTo('social')">
+                        <div class="cat-icon"><i class="fas fa-share-alt"></i></div>
+                        <span>Social</span>
+                    </button>
+                    <button class="curved-cat-item" data-category="contact" onclick="navigateTo('contact')">
+                        <div class="cat-icon"><i class="fas fa-phone"></i></div>
+                        <span>Contact</span>
+                    </button>
+                    <button class="curved-cat-item" data-category="form" onclick="navigateTo('form')">
+                        <div class="cat-icon"><i class="fas fa-paper-plane"></i></div>
+                        <span>Enquiry</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MY STORY SECTION -->
+    <section class="section" id="story-section">
+        <div class="section-inner">
+            <h2 class="section-title"><span class="title-accent"></span> My Story</h2>
+            <div class="story-card glass-card">
+                <div class="story-text">
+                    <p class="story-highlight">I am a passionate Web Developer with experience in WordPress and UI design.</p>
+                    <p>I create responsive and user-friendly websites for businesses and personal brands — focused on clean layouts, fast loading, and a great mobile experience.</p>
+                </div>
+                <div class="story-details">
+                    <div class="story-item"><i class="fas fa-graduation-cap"></i> Master's in Economics</div>
+                    <div class="story-item"><i class="fas fa-palette"></i> UI/UX Intern Experience</div>
+                    <div class="story-item"><i class="fas fa-map-pin"></i> Based in Arani, India</div>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card glass-card" data-count="100">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">UI/UX Challenges</div>
+                    <div class="stat-plus">+</div>
+                </div>
+                <div class="stat-card glass-card" data-count="10">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Live Websites</div>
+                    <div class="stat-plus">+</div>
+                </div>
+                <div class="stat-card glass-card" data-count="5">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Certifications</div>
+                    <div class="stat-plus">+</div>
+                </div>
+                <div class="stat-card glass-card" data-count="1">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Years Exp.</div>
+                    <div class="stat-plus">+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-categories">
+            <button onclick="navigateTo('about')">About</button>
+            <button onclick="navigateTo('services')">Services</button>
+            <button onclick="navigateTo('portfolio')">Portfolio</button>
+            <button onclick="navigateTo('contact')">Contact</button>
+        </div>
+        <div class="footer-contact">
+            <a href="tel:+9500388259"><i class="fas fa-phone"></i> 9500388259</a>
+            <a href="mailto:dilliraja20et03@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+        <div class="footer-developer">
+            Developed by <span class="developer-name" id="developer-link">DilliRaja S</span>
+        </div>
+    </footer>
+</div>
+
+<!-- ==================== PAGE 2: CATEGORIES LIST ==================== -->
+<div id="page-categories" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="navigateTo('home')">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">Categories</h2>
+        </div>
+        <div class="header-right"></div>
+    </header>
+    <section class="section categories-page">
+        <div class="categories-grid">
+            <button class="category-card glass-card game-hover" onclick="navigateTo('about')">
+                <div class="cat-card-icon" style="--cat-color: #00f5d4;"><i class="fas fa-user-circle"></i></div>
+                <h3>About</h3>
+                <p>My story & journey</p>
+                <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+            </button>
+            <button class="category-card glass-card game-hover" onclick="navigateTo('services')">
+                <div class="cat-card-icon" style="--cat-color: #fee440;"><i class="fas fa-concierge-bell"></i></div>
+                <h3>Services</h3>
+                <p>What I offer</p>
+                <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+            </button>
+            <button class="category-card glass-card game-hover" onclick="navigateTo('portfolio')">
+                <div class="cat-card-icon" style="--cat-color: #f15bb5;"><i class="fas fa-images"></i></div>
+                <h3>Portfolio</h3>
+                <p>My work showcase</p>
+                <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+            </button>
+            <button class="category-card glass-card game-hover" onclick="navigateTo('social')">
+                <div class="cat-card-icon" style="--cat-color: #9b5de5;"><i class="fas fa-link"></i></div>
+                <h3>Social Media</h3>
+                <p>Connect with me</p>
+                <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+            </button>
+            <button class="category-card glass-card game-hover" onclick="navigateTo('contact')">
+                <div class="cat-card-icon" style="--cat-color: #00bbf9;"><i class="fas fa-address-card"></i></div>
+                <h3>Contact</h3>
+                <p>Get in touch</p>
+                <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+            </button>
+            <button class="category-card glass-card game-hover" onclick="navigateTo('form')">
+                <div class="cat-card-icon" style="--cat-color: #00f5a0;"><i class="fas fa-paper-plane"></i></div>
+                <h3>Enquiry Form</h3>
+                <p>Request a quote</p>
+                <div class="cat-arrow"><i class="fas fa-arrow-right"></i></div>
+            </button>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== ABOUT PAGE ==================== -->
+<div id="page-about" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">About Me</h2>
+        </div>
+        <div class="header-right">
+            <button class="btn-icon" onclick="window.open('https://wa.me/9500388259','_blank')">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </header>
+    <section class="section about-page">
+        <div class="about-hero">
+            <div class="about-profile">
+                <div class="about-img-wrapper">
+                    <img src="assets/profile.jpg" alt="DilliRaja S">
+                    <div class="about-img-ring"></div>
+                </div>
+                <h2 class="about-name">DilliRaja S</h2>
+                <p class="about-role">Web Developer & UI/UX Designer</p>
+            </div>
+        </div>
+        <div class="about-story glass-card">
+            <h3><i class="fas fa-book-open"></i> My Story</h3>
+            <p>I am a passionate Web Developer with experience in WordPress and UI design.</p>
+            <p>I create responsive and user-friendly websites for businesses and personal brands — focused on clean layouts, fast loading, and a great mobile experience.</p>
+            <div class="about-details">
+                <div class="about-detail-item"><i class="fas fa-graduation-cap"></i><span>Master's in Economics</span></div>
+                <div class="about-detail-item"><i class="fas fa-palette"></i><span>UI/UX Intern Experience</span></div>
+                <div class="about-detail-item"><i class="fas fa-map-pin"></i><span>Based in Arani, India</span></div>
+            </div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-card glass-card" data-count="100">
+                <div class="stat-number">0</div>
+                <div class="stat-label">UI/UX Challenges</div>
+                <div class="stat-plus">+</div>
+            </div>
+            <div class="stat-card glass-card" data-count="10">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Live Websites</div>
+                <div class="stat-plus">+</div>
+            </div>
+            <div class="stat-card glass-card" data-count="5">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Certifications</div>
+                <div class="stat-plus">+</div>
+            </div>
+            <div class="stat-card glass-card" data-count="1">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Years Exp.</div>
+                <div class="stat-plus">+</div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== SERVICES PAGE ==================== -->
+<div id="page-services" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">Services</h2>
+        </div>
+        <div class="header-right">
+            <button class="btn-icon" onclick="window.open('https://wa.me/9500388259','_blank')">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </header>
+    <section class="section services-page">
+        <!-- LOGO DESIGN -->
+        <div class="service-section">
+            <div class="service-header game-hover" onclick="toggleService(this)">
+                <div class="service-icon" style="--svc-color: #00f5d4;"><i class="fas fa-paint-brush"></i></div>
+                <h3>Logo Design</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="service-content">
+                <p class="service-desc">Custom logo designs crafted to represent your brand identity.</p>
+                <div class="logo-showcase">
+                    <div class="logo-card game-hover" style="--logo-bg: linear-gradient(135deg, #ff4444, #cc0000);" onclick="openLightbox('assets/logo1.jpg')">
+                        <div class="logo-display">
+                            <img src="assets/logo1.jpg" alt="Red Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                        </div>
+                        <span class="logo-label">Logo 1 - Red</span>
+                        <p class="logo-explain">Bold & Passionate - Red symbolizes energy, power, and determination. Used for brands that want to grab attention instantly and create a sense of urgency.</p>
+                    </div>
+                    <div class="logo-card game-hover" style="--logo-bg: linear-gradient(135deg, #4488ff, #0044cc);" onclick="openLightbox('assets/logo2.jpg')">
+                        <div class="logo-display">
+                            <img src="assets/logo2.jpg" alt="Blue Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                        </div>
+                        <span class="logo-label">Logo 2 - Blue</span>
+                        <p class="logo-explain">Trust & Professional - Blue conveys reliability, wisdom, and confidence. The go-to color for corporate, tech, and finance brands worldwide.</p>
+                    </div>
+                    <div class="logo-card game-hover" style="--logo-bg: linear-gradient(135deg, #44cc44, #228822);" onclick="openLightbox('assets/logo3.jpg')">
+                        <div class="logo-display">
+                            <img src="assets/logo3.jpg" alt="Green Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                        </div>
+                        <span class="logo-label">Logo 3 - Green</span>
+                        <p class="logo-explain">Growth & Harmony - Green represents nature, health, and prosperity. Perfect for eco-friendly, wellness, and sustainability brands.</p>
+                    </div>
+                    <div class="logo-card game-hover" style="--logo-bg: linear-gradient(135deg, #885533, #553311);" onclick="openLightbox('assets/logo4.jpg')">
+                        <div class="logo-display">
+                            <img src="assets/logo4.jpg" alt="Brown Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+                        </div>
+                        <span class="logo-label">Logo 4 - Brown</span>
+                        <p class="logo-explain">Earth & Stability - Brown evokes warmth, reliability, and organic feel. Suited for artisan, heritage, and handcrafted brands.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RESPONSIVE WEBSITE BUILDER -->
+        <div class="service-section">
+            <div class="service-header game-hover" onclick="toggleService(this)">
+                <div class="service-icon" style="--svc-color: #fee440;"><i class="fas fa-laptop-code"></i></div>
+                <h3>Responsive Website Builder</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="service-content">
+                <div class="sub-service">
+                    <h4><i class="fas fa-file-code"></i> Static Website</h4>
+                    <p>Clean, fast-loading static websites perfect for portfolios and landing pages.</p>
+                    <a href="https://dillistudio.github.io/dilliraja/" target="_blank" class="demo-link game-hover">
+                        <i class="fas fa-external-link-alt"></i> View Demo - ₹300 Website
+                    </a>
+                </div>
+                <div class="sub-service">
+                    <h4><i class="fas fa-database"></i> Dynamic Website</h4>
+                    <p>Interactive websites with dynamic content and database integration.</p>
+                    <a href="https://kashvivastralaya.com" target="_blank" class="demo-link game-hover">
+                        <i class="fas fa-external-link-alt"></i> View Demo - E-Commerce Site
+                    </a>
+                </div>
+                <div class="sub-service">
+                    <h4><i class="fas fa-rocket"></i> Advanced Website</h4>
+                    <p>Full-featured websites with admin panels, email support, and custom design.</p>
+                    <a href="https://dsdsarees.lovable.app" target="_blank" class="demo-link game-hover">
+                        <i class="fas fa-external-link-alt"></i> View Demo - Advanced Site
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- POST GENERATION -->
+        <div class="service-section">
+            <div class="service-header game-hover" onclick="toggleService(this)">
+                <div class="service-icon" style="--svc-color: #f15bb5;"><i class="fas fa-pen-nib"></i></div>
+                <h3>Post Generation</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="service-content">
+                <p class="service-desc">Creative social media posts and promotional content for your business.</p>
+                <div class="post-samples">
+                    <div class="post-sample glass-card">
+                        <div class="post-preview" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                            <i class="fas fa-image"></i>
+                        </div>
+                        <span>Social Media Post</span>
+                    </div>
+                    <div class="post-sample glass-card">
+                        <div class="post-preview" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <span>Promotional Post</span>
+                    </div>
+                    <div class="post-sample glass-card">
+                        <div class="post-preview" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                            <i class="fas fa-ad"></i>
+                        </div>
+                        <span>Advertisement</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOCIAL MEDIA MANAGEMENT -->
+        <div class="service-section">
+            <div class="service-header game-hover" onclick="toggleService(this)">
+                <div class="service-icon" style="--svc-color: #9b5de5;"><i class="fas fa-share-alt"></i></div>
+                <h3>Social Media Management</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="service-content">
+                <p class="service-desc">Complete social media management including content creation, scheduling, and analytics.</p>
+                <div class="sm-features">
+                    <div class="sm-feature"><i class="fab fa-instagram"></i> Instagram</div>
+                    <div class="sm-feature"><i class="fab fa-facebook"></i> Facebook</div>
+                    <div class="sm-feature"><i class="fab fa-linkedin"></i> LinkedIn</div>
+                    <div class="sm-feature"><i class="fab fa-twitter"></i> Twitter</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRICING -->
+        <div class="service-section">
+            <div class="service-header game-hover" onclick="toggleService(this)">
+                <div class="service-icon" style="--svc-color: #00f5a0;"><i class="fas fa-tags"></i></div>
+                <h3>Pricing Plans</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="service-content">
+                <div class="pricing-grid">
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Basic</div>
+                        <div class="pricing-price">₹300</div>
+                        <p>Mini Website with Free Domain</p>
+                        <span class="pricing-note">One Time Payment</span>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Plus</div>
+                        <div class="pricing-price">₹500</div>
+                        <p>Custom Design Website</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Static</div>
+                        <div class="pricing-price">₹1,200</div>
+                        <p>Static Website</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Static+</div>
+                        <div class="pricing-price">₹3,000</div>
+                        <p>Static + Own Domain</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Custom</div>
+                        <div class="pricing-price">₹5,000</div>
+                        <p>Static + Custom Design</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">E-Commerce</div>
+                        <div class="pricing-price">₹5,000</div>
+                        <p>E-Commerce Website</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">E-Com+</div>
+                        <div class="pricing-price">₹7,000</div>
+                        <p>E-Commerce + Admin Panel</p>
+                    </div>
+                    <div class="pricing-card glass-card featured">
+                        <div class="pricing-badge">Premium</div>
+                        <div class="pricing-price">₹10,000</div>
+                        <p>E-Com + Custom + Admin + Domain</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Advanced</div>
+                        <div class="pricing-price">₹10,000</div>
+                        <p>Advanced Website</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Advanced+</div>
+                        <div class="pricing-price">₹12,000</div>
+                        <p>Advanced + Own Domain</p>
+                    </div>
+                    <div class="pricing-card glass-card featured">
+                        <div class="pricing-badge">Pro</div>
+                        <div class="pricing-price">₹15,000</div>
+                        <p>Advanced + Domain + Admin + Email + Custom</p>
+                    </div>
+                    <div class="pricing-card glass-card">
+                        <div class="pricing-badge">Enterprise</div>
+                        <div class="pricing-price">₹20,000+</div>
+                        <p>More Products & Solutions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== PORTFOLIO PAGE ==================== -->
+<div id="page-portfolio" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">Portfolio</h2>
+        </div>
+        <div class="header-right">
+            <button class="btn-icon" onclick="window.open('https://wa.me/9500388259','_blank')">
+                <i class="fab fa-whatsapp"></i>
+            </button>
+        </div>
+    </header>
+    <section class="section portfolio-page">
+        <div class="portfolio-grid">
+            <div class="portfolio-card glass-card game-hover">
+                <div class="portfolio-img" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Logo Design Collection</h3>
+                    <p>Custom brand identity logos</p>
+                    <div class="portfolio-tags">
+                        <span>Logo</span><span>Branding</span><span>Design</span>
+                    </div>
+                </div>
+            </div>
+            <a href="https://dillistudio.github.io/dilliraja/" target="_blank" class="portfolio-card glass-card game-hover">
+                <div class="portfolio-img" style="background: linear-gradient(135deg, #00f5d4, #00bbf9);">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Mini Website - ₹300</h3>
+                    <p>Responsive mini website with free domain</p>
+                    <span class="demo-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span>
+                </div>
+            </a>
+            <a href="https://dillistudio.github.io/kickstartdigital" target="_blank" class="portfolio-card glass-card game-hover">
+                <div class="portfolio-img" style="background: linear-gradient(135deg, #fee440, #f15bb5);">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Static Website - ₹1,200</h3>
+                    <p>Professional static website</p>
+                    <span class="demo-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span>
+                </div>
+            </a>
+            <a href="https://test.learnova.in" target="_blank" class="portfolio-card glass-card game-hover">
+                <div class="portfolio-img" style="background: linear-gradient(135deg, #9b5de5, #f15bb5);">
+                    <i class="fas fa-server"></i>
+                </div>
+                <div class="portfolio-info">
+                    <h3>5 Page Static - ₹5,000</h3>
+                    <p>Static website with own domain</p>
+                    <span class="demo-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span>
+                </div>
+            </a>
+            <a href="https://kashvivastralaya.com" target="_blank" class="portfolio-card glass-card game-hover">
+                <div class="portfolio-img" style="background: linear-gradient(135deg, #00bbf9, #9b5de5);">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="portfolio-info">
+                    <h3>E-Commerce Site - ₹7,000</h3>
+                    <p>Dynamic e-commerce with own domain</p>
+                    <span class="demo-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span>
+                </div>
+            </a>
+            <a href="https://dsdsarees.lovable.app" target="_blank" class="portfolio-card glass-card game-hover">
+                <div class="portfolio-img" style="background: linear-gradient(135deg, #f5576c, #ff6b6b);">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="portfolio-info">
+                    <h3>Advanced Website</h3>
+                    <p>Email, login, admin, product management</p>
+                    <span class="demo-badge"><i class="fas fa-external-link-alt"></i> Live Demo</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- POSTS SECTION -->
+        <div class="posts-section">
+            <h3 class="section-subtitle"><i class="fas fa-pen-fancy"></i> Duzhine IT Solutions - Posts</h3>
+            <div class="posts-grid">
+                <div class="post-card glass-card game-hover" onclick="openLightbox('assets/post%201.png')">
+                    <div class="post-thumb" style="background: url('assets/post%201.png') center/cover, linear-gradient(135deg, #667eea, #764ba2);">
+                    </div>
+                    <span>Post 1</span>
+                </div>
+                <div class="post-card glass-card game-hover" onclick="openLightbox('assets/post%202.png')">
+                    <div class="post-thumb" style="background: url('assets/post%202.png') center/cover, linear-gradient(135deg, #f093fb, #f5576c);">
+                    </div>
+                    <span>Post 2</span>
+                </div>
+                <div class="post-card glass-card game-hover" onclick="openLightbox('assets/post%203.png')">
+                    <div class="post-thumb" style="background: url('assets/post%203.png') center/cover, linear-gradient(135deg, #4facfe, #00f2fe);">
+                    </div>
+                    <span>Post 3</span>
+                </div>
+                <div class="post-card glass-card game-hover" onclick="openLightbox('assets/post%204.png')">
+                    <div class="post-thumb" style="background: url('assets/post%204.png') center/cover, linear-gradient(135deg, #43e97b, #38f9d7);">
+                    </div>
+                    <span>Post 4</span>
+                </div>
+                <div class="post-card glass-card game-hover" onclick="openLightbox('assets/post%205.png')">
+                    <div class="post-thumb" style="background: url('assets/post%205.png') center/cover, linear-gradient(135deg, #fa709a, #fee140);">
+                    </div>
+                    <span>Post 5</span>
+                </div>
+                <div class="post-card glass-card game-hover" onclick="openLightbox('assets/post%206.png')">
+                    <div class="post-thumb" style="background: url('assets/post%206.png') center/cover, linear-gradient(135deg, #a18cd1, #fbc2eb);">
+                    </div>
+                    <span>Post 6</span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== SOCIAL MEDIA PAGE ==================== -->
+<div id="page-social" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">Social Media</h2>
+        </div>
+        <div class="header-right"></div>
+    </header>
+    <section class="section social-page">
+        <div class="social-links">
+            <a href="https://www.instagram.com/im_dilliraja?igsh=MXZ1OHJnYTZiNmQ2Zg==" target="_blank" class="social-card glass-card game-hover" style="--social-color: #E4405F;">
+                <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                <div class="social-info">
+                    <h3>Instagram</h3>
+                    <p>@im_dilliraja</p>
+                </div>
+                <i class="fas fa-external-link-alt social-arrow"></i>
+            </a>
+            <a href="https://www.facebook.com/dilli.raja.5264" target="_blank" class="social-card glass-card game-hover" style="--social-color: #1877F2;">
+                <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                <div class="social-info">
+                    <h3>Facebook</h3>
+                    <p>Dilli Raja</p>
+                </div>
+                <i class="fas fa-external-link-alt social-arrow"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/dilliraja-s-88a68327a?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="social-card glass-card game-hover" style="--social-color: #0A66C2;">
+                <div class="social-icon"><i class="fab fa-linkedin-in"></i></div>
+                <div class="social-info">
+                    <h3>LinkedIn</h3>
+                    <p>DilliRaja S</p>
+                </div>
+                <i class="fas fa-external-link-alt social-arrow"></i>
+            </a>
+            <a href="https://dillistudio.github.io/dilliraja/" target="_blank" class="social-card glass-card game-hover" style="--social-color: #00f5d4;">
+                <div class="social-icon"><i class="fas fa-globe"></i></div>
+                <div class="social-info">
+                    <h3>Portfolio</h3>
+                    <p>dillistudio.github.io</p>
+                </div>
+                <i class="fas fa-external-link-alt social-arrow"></i>
+            </a>
+            <div class="social-card glass-card coming-soon" style="--social-color: #333;">
+                <div class="social-icon"><i class="fab fa-github"></i></div>
+                <div class="social-info">
+                    <h3>GitHub</h3>
+                    <p>Coming Soon</p>
+                </div>
+                <span class="coming-badge">Soon</span>
+            </div>
+            <div class="social-card glass-card coming-soon" style="--social-color: #333;">
+                <div class="social-icon"><i class="fas fa-ellipsis-h"></i></div>
+                <div class="social-info">
+                    <h3>More</h3>
+                    <p>Coming Soon</p>
+                </div>
+                <span class="coming-badge">Soon</span>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div id="page-contact" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">Contact</h2>
+        </div>
+        <div class="header-right"></div>
+    </header>
+    <section class="section contact-page">
+        <div class="contact-cards">
+            <a href="tel:+9500388259" class="contact-card glass-card game-hover">
+                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                <h3>Phone</h3>
+                <p>+91 9500388259</p>
+            </a>
+            <a href="mailto:dilliraja20et03@gmail.com" class="contact-card glass-card game-hover">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <h3>Email</h3>
+                <p>dilliraja20et03@gmail.com</p>
+            </a>
+            <div class="contact-card glass-card game-hover" onclick="window.open('https://wa.me/9500388259','_blank')">
+                <div class="contact-icon" style="background: #25D366;"><i class="fab fa-whatsapp"></i></div>
+                <h3>WhatsApp</h3>
+                <p>Chat with me</p>
+            </div>
+        </div>
+
+        <!-- SAVE CONTACT -->
+        <div class="save-contact-section glass-card">
+            <h3><i class="fas fa-address-book"></i> Save Contact</h3>
+            <p>Save my contact details to your phone</p>
+            <button class="btn-primary game-hover" id="btn-save-contact">
+                <i class="fas fa-download"></i> Save Contact Card
+            </button>
+            <button class="btn-secondary game-hover" id="btn-share-contact">
+                <i class="fas fa-share-alt"></i> Share Contact
+            </button>
+        </div>
+
+        <!-- SHARE TO DEVICES -->
+        <div class="share-devices glass-card">
+            <h3><i class="fas fa-share-alt"></i> Share to Devices</h3>
+            <p>Send my profile to any device</p>
+            <div class="share-device-grid">
+                <button class="share-device-btn game-hover" onclick="shareVia('bluetooth')">
+                    <i class="fas fa-bluetooth-b"></i>
+                    <span>Bluetooth</span>
+                </button>
+                <button class="share-device-btn game-hover" onclick="shareVia('email')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </button>
+                <button class="share-device-btn game-hover" onclick="shareVia('whatsapp')">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </button>
+                <button class="share-device-btn game-hover" onclick="shareVia('telegram')">
+                    <i class="fab fa-telegram"></i>
+                    <span>Telegram</span>
+                </button>
+                <button class="share-device-btn game-hover" onclick="shareVia('sms')">
+                    <i class="fas fa-sms"></i>
+                    <span>SMS</span>
+                </button>
+                <button class="share-device-btn game-hover" onclick="shareVia('clipboard')">
+                    <i class="fas fa-copy"></i>
+                    <span>Copy Link</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- BOOK VIA WHATSAPP -->
+        <div class="whatsapp-book glass-card">
+            <h3><i class="fab fa-whatsapp"></i> Book via WhatsApp</h3>
+            <p>Quick booking for website development</p>
+            <a href="https://wa.me/9500388259?text=Hi%20DilliRaja!%20I%20want%20to%20book%20a%20website." target="_blank" class="btn-whatsapp game-hover">
+                <i class="fab fa-whatsapp"></i> Book Now - 9500388259
+            </a>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== ENQUIRY FORM PAGE ==================== -->
+<div id="page-form" class="page">
+    <header class="header">
+        <div class="header-left">
+            <button class="btn-icon back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+        </div>
+        <div class="header-center">
+            <h2 class="page-title">Enquiry Form</h2>
+        </div>
+        <div class="header-right"></div>
+    </header>
+    <section class="section form-page">
+        <form id="enquiry-form" class="enquiry-form glass-card">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Name</label>
+                <input type="text" id="form-name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="form-email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Phone Number</label>
+                <input type="tel" id="form-phone" placeholder="Your Phone Number" required>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-concierge-bell"></i> Select Service</label>
+                <select id="form-service" required>
+                    <option value="">-- Select a Plan --</option>
+                    <option value="300">₹300 - Mini Website with Free Domain (One Time)</option>
+                    <option value="500">₹500 - Plus Custom Design</option>
+                    <option value="1000">₹1,000 - Static Website</option>
+                    <option value="3000">₹3,000 - Static + Own Domain</option>
+                    <option value="5000">₹5,000 - Static + Custom Design</option>
+                    <option value="5000-ecom">₹5,000 - E-Commerce Website</option>
+                    <option value="7000">₹7,000 - E-Commerce + Admin Panel</option>
+                    <option value="10000-ecom">₹10,000 - E-Com + Custom + Admin + Domain</option>
+                    <option value="10000-adv">₹10,000 - Advanced Website</option>
+                    <option value="12000">₹12,000 - Advanced + Own Domain</option>
+                    <option value="15000">₹15,000 - Advanced + Domain + Admin + Email + Custom</option>
+                    <option value="20000">₹20,000+ - More Products</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-comment"></i> Message (Optional)</label>
+                <textarea id="form-message" placeholder="Tell me about your project..." rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn-primary btn-submit game-hover">
+                <i class="fas fa-paper-plane"></i> Send Enquiry
+            </button>
+        </form>
+    </section>
+</div>
+
+<!-- ==================== TOAST NOTIFICATION ==================== -->
+<div id="toast" class="toast"></div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
