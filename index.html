@@ -2488,7 +2488,7 @@ body.light-theme ::-webkit-scrollbar-thumb { background: var(--primary); }
                 <div class="sub-service">
                     <h4><i class="fas fa-file-code"></i> Static Website</h4>
                     <p>Clean, fast-loading static websites perfect for portfolios and landing pages.</p>
-                    <a href="https://dillistudio.github.io/dilliraja/" target="_blank" class="demo-link game-hover">
+                    <a href="https://dillistudio.github.io/demo/" target="_blank" class="demo-link game-hover">
                         <i class="fas fa-external-link-alt"></i> View Demo - ₹300 Website
                     </a>
                 </div>
@@ -2666,7 +2666,7 @@ body.light-theme ::-webkit-scrollbar-thumb { background: var(--primary); }
                     </div>
                 </div>
             </div>
-            <a href="https://dillistudio.github.io/dilliraja/" target="_blank" class="portfolio-card glass-card game-hover">
+            <a href="https://dillistudio.github.io/demo/" target="_blank" class="portfolio-card glass-card game-hover">
                 <div class="portfolio-img" style="background: linear-gradient(135deg, #00f5d4, #00bbf9);">
                     <i class="fas fa-mobile-alt"></i>
                 </div>
@@ -2796,7 +2796,7 @@ body.light-theme ::-webkit-scrollbar-thumb { background: var(--primary); }
                 </div>
                 <i class="fas fa-external-link-alt social-arrow"></i>
             </a>
-            <a href="https://dillistudio.github.io/dilliraja/" target="_blank" class="social-card glass-card game-hover" style="--social-color: #00f5d4;">
+            <a href="https://dillistudio.github.io/demo/" target="_blank" class="social-card glass-card game-hover" style="--social-color: #00f5d4;">
                 <div class="social-icon"><i class="fas fa-globe"></i></div>
                 <div class="social-info">
                     <h3>Portfolio</h3>
@@ -3467,7 +3467,7 @@ function shareLightboxImage() {
 // ==================== SHARE VIA DEVICES ====================
 function shareVia(method) {
     playSound('click');
-    const shareUrl = 'https://dillistudio.github.io/dilliraja/';
+    const shareUrl = 'https://dillistudio.github.io/raj/';
     const shareText = 'Check out DilliRaja S - Web Developer & UI/UX Designer\nPhone: +91 9500388259\nPortfolio: ' + shareUrl;
 
     switch(method) {
@@ -3514,7 +3514,7 @@ function shareVia(method) {
 document.getElementById('btn-save-contact')?.addEventListener('click', () => {
     playSound('success');
 
-    const vCard = 'BEGIN:VCARD\nVERSION:3.0\nN:S;DilliRaja;;;\nFN:DilliRaja S\nORG:DilliRaja Web Development\nTEL;TYPE=CELL:+919500388259\nEMAIL:dilliraja20et03@gmail.com\nURL:https://dillistudio.github.io/dilliraja/\nADR;TYPE=WORK:;;Arani;;Tamil Nadu;;India\nNOTE:Web Developer & UI/UX Designer\nEND:VCARD';
+    const vCard = 'BEGIN:VCARD\nVERSION:3.0\nN:S;DilliRaja;;;\nFN:DilliRaja S\nORG:DilliRaja Web Development\nTEL;TYPE=CELL:+919500388259\nEMAIL:dilliraja20et03@gmail.com\nURL:https://dillistudio.github.io/raj/\nADR;TYPE=WORK:;;Arani;;Tamil Nadu;;India\nNOTE:Web Developer & UI/UX Designer\nEND:VCARD';
 
     const blob = new Blob([vCard], { type: 'text/vcard' });
     const url = URL.createObjectURL(blob);
@@ -3535,8 +3535,8 @@ document.getElementById('btn-share-contact')?.addEventListener('click', async ()
         try {
             await navigator.share({
                 title: 'DilliRaja S - Web Developer',
-                text: 'Contact DilliRaja S - Web Developer & UI/UX Designer\nPhone: +91 9500388259\nEmail: dilliraja20et03@gmail.com\nPortfolio: https://dillistudio.github.io/dilliraja/',
-                url: 'https://dillistudio.github.io/dilliraja/'
+                text: 'Contact DilliRaja S - Web Developer & UI/UX Designer\nPhone: +91 9500388259\nEmail: dilliraja20et03@gmail.com\nPortfolio: https://dillistudio.github.io/raj/',
+                url: 'https://dillistudio.github.io/raj/'
             });
             showToast('Shared successfully!');
         } catch (e) {
@@ -3550,7 +3550,7 @@ document.getElementById('btn-share-contact')?.addEventListener('click', async ()
 });
 
 function fallbackShare() {
-    const text = 'Contact DilliRaja S - Web Developer\nPhone: +91 9500388259\nEmail: dilliraja20et03@gmail.com\nPortfolio: https://dillistudio.github.io/dilliraja/';
+    const text = 'Contact DilliRaja S - Web Developer\nPhone: +91 9500388259\nEmail: dilliraja20et03@gmail.com\nPortfolio: https://dillistudio.github.io/raj/';
     const url = 'https://wa.me/?text=' + encodeURIComponent(text);
     window.open(url, '_blank');
     showToast('Opening WhatsApp to share...');
